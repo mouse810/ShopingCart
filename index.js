@@ -2,47 +2,47 @@
 const shop = document.getElementById('shop')
 
 // Shot Items Array
-
 let shopItemsData = [{
      id: '01',
      name: 'Casual Shirt',
      price: 45,
-     disc: 'Cool Shirts for Man.Cool Shirts for Man.',
+     description: 'Cool Shirts for Man.Cool Shirts for Man.',
      img: 'images/img-1.jpg'
 }, {
      id: '01',
      name: 'Office Shirt',
      price: 100,
-     disc: 'Cool Shirts for Man.Cool Shirts for Man.',
+     description: 'Cool Shirts for Man.Cool Shirts for Man.',
      img: 'images/img-2.jpg'
 }, {
      id: '01',
      name: 'T-Shirt',
      price: 30,
-     disc: 'Cool Shirts for Man.Cool Shirts for Man.',
+     description: 'Cool Shirts for Man.Cool Shirts for Man.',
      img: 'images/img-3.jpg'
 }, {
      id: '01',
      name: 'Man Suit',
      price: 300,
-     disc: 'Cool Shirts for Man.Cool Shirts for Man.',
+     description: 'Cool Shirts for Man.Cool Shirts for Man.',
      img: 'images/img-4.jpg'
-},]
-// Basket
+     }]
 
+// Basket
 const basket = []
 
-// Arrow function
+// Arrow functions
 
+// Product Item
 const generateShop = () => {
      return (shop.innerHTML = shopItemsData.map((x) => {
-          let { id, name, desc, price, img } = x
+          let { id, name, price, description, img } = x;
           return `
      <div id='product-id-${id}' class="item">
         <img width="220" src=${img} alt="" />
         <div class="details">
           <h3>${name}</h3>
-          <p>${desc}</p>
+          <p>${description}</p>
           <div class="price-quantity">
             <h2>$ ${price}</h2>
             <div class="buttons">
@@ -56,36 +56,37 @@ const generateShop = () => {
      `
      }).join(''))
 }
-
 generateShop()
 
 // Increment, Decrement and Update
-
 const increment = (id) => {
      const selectedItem = id;
      let search = basket.find((x) => x.id === selectedItem.id)
      if (search === undefined) {
           basket.push({
                id: selectedItem.id,
-               item: 1
-          })
+               item: 1,
+          });
      } else {
           search.item += 1;
      }
      console.log(basket);
-}
+     update(selectedItem.id)
+};
 
 const decrement = (id) => {
      const selectedItem = id;
      let search = basket.find((x) => x.id === selectedItem.id)
-     if (search === undefined) {
-          basket.push({
-               id: selectedItem.id,
-               item: 1
-          })
-     } else {
+     if (search === 0) return;
+     else {
           search.item -= 1;
      }
      console.log(basket);
+     update(selectedItem.id)
+
 }
-const update = () => { }
+const update = (id) => {
+     let search = basket.find((x) => x.id === id)
+     document.getElementById(id).innerHTML = search.item 
+     console.log(search.item)
+}
